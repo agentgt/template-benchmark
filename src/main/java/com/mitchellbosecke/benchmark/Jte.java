@@ -5,7 +5,6 @@ import com.mitchellbosecke.benchmark.model.Stock;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.output.StringOutput;
-import gg.jte.output.StringOutputPool;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
@@ -20,7 +19,6 @@ import java.util.List;
  * @author casid
  */
 public class Jte extends BaseBenchmark {
-    private static final StringOutputPool stringOutputPool = new StringOutputPool();
     private TemplateEngine templateEngine;
     private List<Stock> items;
 
@@ -34,7 +32,7 @@ public class Jte extends BaseBenchmark {
 
     @Benchmark
     public String benchmark() {
-        StringOutput output = stringOutputPool.get();
+        StringOutput output = new StringOutput();
         templateEngine.render("stocks.jte", items, output);
         return output.toString();
     }

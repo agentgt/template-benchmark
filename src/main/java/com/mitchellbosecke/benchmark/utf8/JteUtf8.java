@@ -39,9 +39,7 @@ public class JteUtf8 extends BaseBenchmark {
     @Benchmark
     public byte[] benchmark() throws IOException {
         Utf8ByteOutput output = new Utf8ByteOutput();
-        ByteBufferedOutputStream stream = new ByteBufferedOutputStream(8 * 1024);
         templateEngine.render("stocks.jte", items, output);
-        output.writeTo(stream);
-        return stream.toByteArray();
+        return output.toByteArray();
     }
 }
